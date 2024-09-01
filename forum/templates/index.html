@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Forum - Home</title>
+    <link rel="stylesheet" href="/styles/index.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-comments"></i>
+                <h1>Forum</h1>
+            </div>
+            <div class="header-actions">
+                <div class="profile-menu">
+                    <button id="profile-button"><i class="fas fa-user-circle"></i> Profile</button>
+                    <div id="profile-dropdown" class="dropdown-content">
+                        {{if not .Logged}}
+                        <a href="/login"><i class="fas fa-sign-out-alt"></i> Sign In/Up</a>
+                        {{end}}
+                        {{if .Logged}}
+                        <a href="/logout"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                        {{end}}
+                    </div>
+                </div>
+                <button id="dark-mode-toggle"><i class="fas fa-moon"></i></button>
+            </div>
+        </header>
+        
+        <nav class="category-nav">
+            <a href="/?type=all" class="category-btn active" data-category="all"><i class="fas fa-globe"></i> All Posts</a>
+            <a href="/?type=my-posts" class="category-btn" data-category="my-posts"><i class="fas fa-user-edit"></i> My Posts</a>
+            <a href="/?type=liked" class="category-btn" data-category="liked"><i class="fas fa-heart"></i> Liked Posts</a>
+            <a href="/?type=tech" class="category-btn" data-category="tech"><i class="fas fa-laptop-code"></i> Tech</a>
+            <a href="/?type=sports" class="category-btn" data-category="sports"><i class="fas fa-football-ball"></i> Sports</a>
+            <a href="/?type=books" class="category-btn" data-category="books"><i class="fas fa-book"></i> Books</a>
+        </nav>
+
+        <main class="post-grid">
+            {{if .Posts}}
+                {{range .Posts}}
+                <div class="post-card" data-post-id="{{.ID}}">
+                    <h2 class="post-title">{{.Title}}</h2>
+                    <p class="post-meta">
+                        <span><i class="fas fa-user"></i> {{.UserName}}</span>
+                        <span><i class="far fa-calendar-alt"></i> {{.Date}}</span>
+                    </p>
+                    <div class="post-actions">
+                        <button class="action-btn like-btn" data-action="like"><i class="fas fa-thumbs-up"></i> <span class="like-count">{{.Likes}}</span></button>
+                        <button class="action-btn dislike-btn" data-action="dislike"><i class="fas fa-thumbs-down"></i> <span class="dislike-count">{{.Dislikes}}</span></button>
+                        <a href="/viewSinglePost?id={{.ID}}#comments" class="action-btn comment-btn"><i class="fas fa-comment"></i> Comment</a>
+                    </div>
+                    <a href="/viewSinglePost?id={{.ID}}" class="view-post-btn">View Full Post</a>
+                </div>
+                {{end}}
+            {{else}}
+                <p class="no-posts">No posts available at the moment.</p>
+            {{end}}
+        </main>
+
+        <a href="/createPost" class="floating-action-btn" title="Create New Post"><i class="fas fa-plus"></i></a>
+    </div>
+    <script src="/styles/index.js"></script>
+</body>
+</html>

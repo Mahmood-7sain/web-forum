@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Create Post</title>
+    <link rel="stylesheet" href="/styles/create-post.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Create Post</h1>
+        </header>
+        <nav>
+        </nav>
+        </nav>
+        <main>
+            <form class="create-post-form" method="POST" action="/createPost">
+                <div class="form-group">
+                    <label for="post-title">Post Title:</label>
+                    <input type="text" id="post-title" name="post-title" required maxlength="100">
+                    <span id="title-counter">100 characters remaining</span>
+                </div>
+                <div class="form-group">
+                    <label>Category:</label>
+                    <div class="category-options">
+                        <label><input type="checkbox" name="category" value="Tech"> Tech</label>
+                        <label><input type="checkbox" name="category" value="Sports"> Sports</label>
+                        <label><input type="checkbox" name="category" value="Books"> Books</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="post-content">Content:</label>
+                    <textarea id="post-content" name="post-content" rows="10" required maxlength="40000"></textarea>
+                    <span id="content-limit-message" style="display: none; color: red;">Maximum character limit reached</span>
+                </div>
+                <div class="form-actions">
+                    <a href="/" class="back-button"><i class="fas fa-arrow-left"></i> Back to Home</a>
+                    <button type="submit">Create Post</button>
+                </div>
+            </form>
+        </main>
+    </div>
+</body>
+<button id="dark-mode-toggle"><i class="fas fa-moon"></i></button>
+
+<script>
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    
+    darkModeToggle.addEventListener('click', function() {
+        document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('theme', document.body.dataset.theme);
+        updateThemeIcon();
+    });
+
+    function updateThemeIcon() {
+        const icon = darkModeToggle.querySelector('i');
+        icon.classList.toggle('fa-moon', document.body.dataset.theme !== 'dark');
+        icon.classList.toggle('fa-sun', document.body.dataset.theme === 'dark');
+    }
+
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.body.dataset.theme = savedTheme;
+        updateThemeIcon();
+    }
+
+    const titleInput = document.getElementById('post-title');
+    const titleCounter = document.getElementById('title-counter');
+    const maxLength = 100;
+
+    titleInput.addEventListener('input', function() {
+        const remainingChars = maxLength - this.value.length;
+        titleCounter.textContent = `${remainingChars} characters remaining`;
+
+        if (remainingChars <= 50) {
+            titleCounter.style.color = 'red';
+        } else {
+            titleCounter.style.color = '';
+        }
+
+        if (remainingChars === 0) {
+            titleCounter.textContent = 'Maximum characters reached';
+        }
+    });
+
+    const contentTextarea = document.getElementById('post-content');
+    const contentLimitMessage = document.getElementById('content-limit-message');
+    const maxContentLength = 40000;
+
+    contentTextarea.addEventListener('input', function() {
+        if (this.value.length >= maxContentLength) {
+            contentLimitMessage.style.display = 'block';
+        } else {
+            contentLimitMessage.style.display = 'none';
+        }
+    });
+</script>
+</html>

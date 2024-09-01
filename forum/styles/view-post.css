@@ -1,0 +1,128 @@
+:root {
+    --primary-color: #E63462;
+    --secondary-color: #00BFB2;
+    --background-color: #FFFFFC;
+    --card-background: #FFFFFC;
+    --text-color: #364652;
+    --text-light: #00BFB2;
+    --border-color: #00BFB2;
+    --shadow-color: rgba(54, 70, 82, 0.1);
+    --accent-color: #000300;
+}
+
+[data-theme="dark"] {
+    --primary-color: #E63462;
+    --secondary-color: #00BFB2;
+    --background-color: #364652;
+    --card-background: #000300;
+    --text-color: #FFFFFC;
+    --text-light: #00BFB2;
+    --border-color: #00BFB2;
+    --shadow-color: rgba(255, 255, 252, 0.1);
+    --accent-color: #E63462;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 3rem;
+    color: var(--primary-color);
+}
+
+.back-button {
+    display: inline-block;
+    text-decoration: none;
+    background-color: var(--secondary-color);
+    color: var(--background-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: var(--primary-color);
+}
+
+.post {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    margin-bottom: 20px;
+}
+
+.post-title {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.post-meta {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.post-content {
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.post-actions button {
+    background-color: var(--secondary-color);
+    color: var(--background-color);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.post-actions button:hover {
+    background-color: var(--primary-color);
+}
+
+.comments {
+    background-color: var(--card-background);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.comment {
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 0;
+}
+
+.comment:last-child {
+    border-bottom: none;
+}
+
+.comment-meta {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+.comment-content {
+    line-height: 1.4;
+}

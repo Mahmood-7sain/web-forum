@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/styles/login.css">
+    <title>Forum - Login</title>
+</head>
+<body>
+    {{if .MessageSuccess}}
+    <span style="color: black;"><b>{{.MessageSuccess}}</b></span>
+    {{end}}
+
+    {{if .MessageEmpty}}
+    <span style="color: red;">{{.MessageEmpty}}</span>
+    {{end}}
+
+    {{if .MessageNoUser}}
+    <span style="color: red;">{{.MessageNoUser}}</span>
+    {{end}}
+
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form method="POST" action="/signup">
+
+                {{if or .MessageName .MessageMail .MessagePass}}
+                <script>
+                    const container = document.getElementById('container');
+                    const registerBtn = document.getElementById('register');
+                    container.classList.add("active");
+                </script>
+                {{end}}
+                <h1 id="createacc">Create Account</h1><br>
+                {{if .MessageName}}
+                     <span style="color:red; margin-bottom: 10px;">{{.MessageName}}</span>
+                {{end}}
+                <input type="text" placeholder="Name" id="username" name="username" required maxlength="30">
+                {{if .MessageMail}}
+                     <span style="color:red">{{.MessageMail}}</span>
+                {{end}}
+                <input type="email" placeholder="Email"  id="email" name="email" required maxlength="30">
+                {{if .MessagePass}}
+                     <span style="color:red">{{.MessagePass}}</span>
+                {{end}}
+                <input type="password" placeholder="Password" id="password" name="password" required maxlength="30">
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form method="POST" action="/login">
+                <h1 id="signin">Sign In</h1> <br>
+                <input type="email" placeholder="Email" id="email" name="email" required maxlength="30">
+                <input type="password" placeholder="Password" id="password" name="password" required maxlength="30">
+                <button type="submit">Sign In</button>
+                <a href="/" style="text-decoration: underline;">Continue as Guest</a>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Enter your personal details to use all of site features</p>
+                    <button class="hidden" id="login">Sign In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Register with your personal details to use all of site features</p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button id="dark-mode-toggle"><i class="fas fa-moon"></i></button>
+    <script src="/styles/login.js"></script>
+</body>
+</html>

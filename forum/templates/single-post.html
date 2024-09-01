@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>{{.Post.Title}} - Post Details</title>
+    <link rel="stylesheet" href="/styles/single-post.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>FORUM</h1>
+            <nav>
+                <a href="/" class="button">Return Home</a> 
+            </nav>
+        </header>
+        
+        <main>
+            <article class="post">
+                <div class="post-content">
+                    <h2>{{.Post.Title}}</h2>
+                    <p class="post-meta">Posted by <span class="username">{{.Post.UserName}}</span> on <span class="post-date">{{.Post.Date}}</span></p>
+                    <p>{{.Post.Content}}</p>
+                </div>
+                <div class="post-actions">
+                    <form action="/like-dislike" method="post" style="display:inline;">
+                        <input type="hidden" name="post_id" value="{{.Post.ID}}">
+                        <input type="hidden" name="action" value="like">
+                        <button type="submit" class="like-button">Likes {{.Post.Likes}}</button>
+                    </form>
+                    
+                    <form action="/like-dislike" method="post" style="display:inline;">
+                        <input type="hidden" name="post_id" value="{{.Post.ID}}">
+                        <input type="hidden" name="action" value="dislike">
+                        <button type="submit" name="action" class="dislike-button">Dislikes {{.Post.Dislikes}}</button>
+                    </form>
+                </div>
+                
+                <div class="post-categories">
+                    <p>Categories: 
+                        {{range .Post.Categories}}
+                            <span class="category">{{.}}</span>
+                        {{end}}
+                    </p>
+                </div>
+            </article>
+            
+            <section class="comments">
+                <h2>Comments</h2>
+                {{if .Comments}}
+                    {{range .Comments}}
+                    <div class="comment">
+                        <p><strong>{{.Author}}:</strong> {{.Content}}</p>
+                        <p class="comment-meta">
+                            Date: {{.Date}}
+                            <form action="/comment-like" method="post" style="display:inline;">
+                                <input type="hidden" name="comment_id" value="{{.CommentID}}">
+                                <input type="hidden" name="post_id" value="{{$.Post.ID}}">
+                                <button type="submit" name="action" value="like">Likes {{.Likes}}</button>
+                            </form>
+                            <form action="/comment-like" method="post" style="display:inline;">
+                                <input type="hidden" name="comment_id" value="{{.CommentID}}">
+                                <input type="hidden" name="post_id" value="{{$.Post.ID}}">
+                                <button type="submit" name="action" value="dislike">Dislikes {{.Dislikes}}</button>
+                            </form>
+                        </p>
+                    </div>
+                    {{end}}
+                {{else}}
+                    <p>No comments yet. Be the first to comment!</p>
+                {{end}}
+                
+                <h3>Add a Comment</h3>
+                <form action="/comment" method="post">
+                    <textarea name="content" rows="4" placeholder="Write your comment here..." required maxlength="100"></textarea><br>
+                    <input type="hidden" name="post_id" value="{{.Post.ID}}">
+                    <button class="button" type="submit">Post Comment</button>
+                </form>
+            </section>
+        </main>
+    </div>
+    <button id="dark-mode-toggle"><i class="fas fa-moon"></i></button>
+    <script>
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        
+        darkModeToggle.addEventListener('click', function() {
+            document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', document.body.dataset.theme);
+            updateThemeIcon();
+        });
+
+        function updateThemeIcon() {
+            const icon = darkModeToggle.querySelector('i');
+            icon.classList.toggle('fa-moon', document.body.dataset.theme !== 'dark');
+            icon.classList.toggle('fa-sun', document.body.dataset.theme === 'dark');
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.body.dataset.theme = savedTheme;
+            updateThemeIcon();
+        }
+    </script>
+</body>
+</html>

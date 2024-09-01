@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>View Post</title>
+    <link rel="stylesheet" href="/styles/view-post.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>FORUM</h1>
+        </header>
+        <nav>
+            <a href="/" class="back-button"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </nav>
+        <main>
+            <article class="post">
+                <h2 class="post-title">{{.Post.Title}}</h2>
+                <p class="post-meta">Posted by {{.Post.UserName}} on {{.Post.Date}}</p>
+                <div class="post-content">
+                    {{.Post.Content}}
+                </div>
+                <div class="post-actions">
+                    <button class="like-btn"><i class="fas fa-thumbs-up"></i> Like ({{.Post.Likes}})</button>
+                    <button class="dislike-btn"><i class="fas fa-thumbs-down"></i> Dislike ({{.Post.Dislikes}})</button>
+                </div>
+            </article>
+            <section class="comments">
+                <h3>Comments</h3>
+                {{range .Comments}}
+                <div class="comment">
+                    <p class="comment-meta">{{.Author}} on {{.Date}}</p>
+                    <p class="comment-content">{{.Content}}</p>
+                </div>
+                {{end}}
+            </section>
+        </main>
+    </div>
+    <button id="dark-mode-toggle"><i class="fas fa-moon"></i></button>
+    <script>
+        // Add the dark mode toggle functionality here
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        
+        darkModeToggle.addEventListener('click', function() {
+            document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', document.body.dataset.theme);
+            updateThemeIcon();
+        });
+
+        function updateThemeIcon() {
+            const icon = darkModeToggle.querySelector('i');
+            icon.classList.toggle('fa-moon', document.body.dataset.theme !== 'dark');
+            icon.classList.toggle('fa-sun', document.body.dataset.theme === 'dark');
+        }
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.body.dataset.theme = savedTheme;
+            updateThemeIcon();
+        }
+    </script>
+</body>
+</html>

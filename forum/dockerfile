@@ -1,0 +1,19 @@
+#Building the docker image from the golang base image that will act as a template
+FROM golang:1.21.7
+#Copying all the files(except the ones in the dockerignore) to the current directory
+COPY . /forum
+#Setting the current directory to be the work directory
+WORKDIR /forum
+#Compiling the main program to be executed
+RUN go build -v main.go
+#Setting and exposing the port that the application will listen on
+ENV PORT=8080
+EXPOSE 8080
+#Executing the program
+CMD ./main
+#Setting the metadata for the image
+LABEL version="1.0"
+LABEL maintainer1="hghateeb"
+LABEL maintainer2="malmarzo"
+LABEL maintanier3="yukhalifa"
+LABEL description="Running Forum on a docker container"

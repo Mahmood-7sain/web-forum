@@ -1,0 +1,230 @@
+:root {
+    --primary-color: #EDB183;
+    --secondary-color: #EDB183;
+    --background-color: #FBFFF1;
+    --card-background: #FBFFF1;
+    --text-color: #000000;
+    --text-light: #000000;
+    --border-color: #EDB183;
+    --shadow-color: rgba(54, 70, 82, 0.1);
+    --accent-color: #EDB183;
+}
+
+[data-theme="dark"] {
+    --primary-color: #00BFB2;
+    --secondary-color: #00BFB2;
+    --background-color: #364652;
+    --card-background: #000300;
+    --text-color: #FFFFFC;
+    --text-light: #00BFB2;
+    --border-color: #00BFB2;
+    --shadow-color: rgba(255, 255, 252, 0.1);
+    --accent-color: #00BFB2;
+}* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.logo i {
+    margin-right: 10px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.profile-menu {
+    position: relative;
+    margin-right: 15px;
+}
+
+#profile-button, #dark-mode-toggle {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--text-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#profile-button:hover, #dark-mode-toggle:hover {
+    background-color: var(--shadow-color);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: var(--card-background);
+    min-width: 160px;
+    box-shadow: 0 8px 16px var(--shadow-color);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dropdown-content a {
+    color: var(--text-color);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--background-color);
+}
+
+.category-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.category-btn {
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.3s;
+    background-color: var(--card-background);
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.category-btn:hover, .category-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.post-card {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    padding: 20px;
+    transition: all 0.3s;
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px var(--shadow-color);
+}
+.post-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.post-meta {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 15px;
+}
+
+.post-meta span {
+    margin-right: 15px;
+}
+
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+.action-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-light);
+}
+
+.action-btn:hover {
+    color: var(--text-light);
+}
+.view-post-btn {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background-color: var(--secondary-color);
+    color: var(--background-color);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.view-post-btn:hover {
+    background-color: #2c2d2e;
+}
+
+.floating-action-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--accent-color);
+    color: var(--background-color);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    transition: all 0.3s;
+}
+
+.floating-action-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px var(--shadow-color);
+}
+
+@media (max-width: 768px) {
+    .post-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.likes-counter {
+    font-weight: bold;
+    color: var(--primary-color);
+}

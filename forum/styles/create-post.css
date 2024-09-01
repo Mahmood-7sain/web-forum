@@ -1,0 +1,160 @@
+:root {
+    --primary-color: #EDB183;
+    --secondary-color: #EDB183;
+    --background-color: #FBFFF1;
+    --card-background: #FBFFF1;
+    --text-color: #000000;
+    --text-light: #000000;
+    --border-color: #EDB183;
+    --shadow-color: rgba(54, 70, 82, 0.1);
+    --accent-color: #EDB183;
+}
+
+[data-theme="dark"] {
+    --primary-color: #00BFB2;
+    --secondary-color: #00BFB2;
+    --background-color: #364652;
+    --card-background: #000300;
+    --text-color: #FFFFFC;
+    --text-light: #00BFB2;
+    --border-color: #00BFB2;
+    --shadow-color: rgba(255, 255, 252, 0.1);
+    --accent-color: #00BFB2;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 3rem;
+    color: var(--primary-color);
+}
+
+.back-button {
+    display: inline-block;
+    text-decoration: none;
+    background-color: var(--secondary-color);
+    color: var(--background-color);
+    padding: 12px 24px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: var(--primary-color);
+}
+
+.create-post-form {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.back-button,
+button[type="submit"] {
+    flex: 1;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    width: calc(50% - 5px); /* Subtracting half of the gap */
+}
+
+.back-button {
+    background-color: var(--secondary-color);
+    color: var(--background-color);
+    margin-right: 5px;
+}
+
+.back-button:hover {
+    background-color: var(--primary-color);
+}
+
+button[type="submit"] {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    margin-left: 5px;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--secondary-color);
+}
+
+.form-group input[type="text"],.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.category-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category-options label {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+button[type="submit"] {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--secondary-color);
+}
