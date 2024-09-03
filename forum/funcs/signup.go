@@ -66,7 +66,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 				msgs.MessageName = "Username already taken!"
 			}
 			if !IsStrongPassword(password) {
-				msgs.MessagePass = "Weak password!"
+				msgs.MessagePass = "Min 8 chars, 1 Upper, 1 Lower, 1 number!"
 			}
 			err := tpl.ExecuteTemplate(w, "login.html", &msgs)
 			if err != nil {

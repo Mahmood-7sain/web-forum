@@ -21,17 +21,13 @@
     <span style="color: red;">{{.MessageNoUser}}</span>
     {{end}}
 
+    {{if or .MessageName .MessageMail .MessagePass}}
+    <span style="color: red;">Failed To Register</span>
+    {{end}}
+
     <div class="container" id="container">
         <div class="form-container sign-up">
             <form method="POST" action="/signup">
-
-                {{if or .MessageName .MessageMail .MessagePass}}
-                <script>
-                    const container = document.getElementById('container');
-                    const registerBtn = document.getElementById('register');
-                    container.classList.add("active");
-                </script>
-                {{end}}
                 <h1 id="createacc">Create Account</h1><br>
                 {{if .MessageName}}
                      <span style="color:red; margin-bottom: 10px;">{{.MessageName}}</span>
