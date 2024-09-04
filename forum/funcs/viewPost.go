@@ -28,10 +28,10 @@ func ViewPost(w http.ResponseWriter, r *http.Request) {
 
 	// Fetch the post details by ID
 	post, err := DB.GetPostByID(postID)
-	if err != nil {
+	if post == nil || err != nil{
 		res := Error{}
-		res.Code = 500
-		res.Status = "Internal Server Error"
+		res.Code = 400
+		res.Status = "Bad Request"
 		ErrorHandler(w, r, &res)
 		return
 	}
