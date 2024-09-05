@@ -154,6 +154,61 @@ func IncrementLikeC(userID, commentID int) error {
     return tx.Commit()
 }
 
+func IncrementLikeC12(userID, commentID int) error {
+    tx, err := DB.Begin()
+    if err != nil {
+        return err
+    }
+
+    // Increment the like count
+    _, err = tx.Exec(`UPDATE comments SET num_likes = num_likes - 1 WHERE comment_id = ?`, commentID)
+    if err != nil {
+        tx.Rollback()
+        return err
+    }
+
+    _, err = tx.Exec(`UPDATE user_comments SET action_type = ''  WHERE user_id = ? AND comment_id = ?`, userID,commentID)
+    if err != nil {
+        tx.Rollback()
+        return err
+    }
+
+    if err != nil {
+        tx.Rollback()
+        return err
+    }
+
+    return tx.Commit()
+}
+
+
+func IncrementDisLikeC12(userID, commentID int) error {
+    tx, err := DB.Begin()
+    if err != nil {
+        return err
+    }
+
+    // Increment the like count
+    _, err = tx.Exec(`UPDATE comments SET num_dislikes = num_dislikes - 1 WHERE comment_id = ?`, commentID)
+    if err != nil {
+        tx.Rollback()
+        return err
+    }
+
+    _, err = tx.Exec(`UPDATE user_comments SET action_type = ''  WHERE user_id = ? AND comment_id = ?`,userID,  commentID)
+    if err != nil {
+        tx.Rollback()
+        return err
+    }
+
+    if err != nil {
+        tx.Rollback()
+        return err
+    }
+
+    return tx.Commit()
+}
+
 
 func IncrementLikeC1(userID, commentID int) error {
     tx, err := DB.Begin()
@@ -254,10 +309,10 @@ func InsertCommentDb(w http.ResponseWriter ,postID int, userID int, content stri
 }
 
 func InsertFirstAction(w http.ResponseWriter, userID int, commentID int, action string, existingAction string){
+    
     if existingAction == "" {
         _, err := DB.Exec(`INSERT INTO user_comments (user_id, comment_id, action_type) VALUES (?, ?, ?)`, userID, commentID, action)
             if err != nil {
-                http.Error(w, "Unable to record interaction", http.StatusInternalServerError)
                 return
             }
 

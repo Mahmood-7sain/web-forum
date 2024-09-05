@@ -170,9 +170,17 @@ func HandelCommmentLike(w http.ResponseWriter, r *http.Request) {
 	DB.InsertFirstAction(w, userID, commentID, action, existingAction)
 
 	if action == "like" && existingAction == "like" {
+		err = DB.IncrementLikeC12(userID, commentID)
+		if err != nil {
+			res := Error{}
+			res.Code = 500
+			res.Status = "Internal Server Error"
+			ErrorHandler(w, r, &res)
+			return
+		}
 		// If the user already liked the post, do nothing or display a message
-		http.Redirect(w, r, fmt.Sprintf("/viewSinglePost?id=%d", postID), http.StatusSeeOther)
-		return
+		// http.Redirect(w, r, fmt.Sprintf("/viewSinglePost?id=%d", postID), http.StatusSeeOther)
+		// return
 	}
 	if action == "like" && existingAction == "dislike" {
 		// If the user had previously disliked, decrease the dislike and increase the like
@@ -186,8 +194,20 @@ func HandelCommmentLike(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if action == "dislike" && existingAction == "dislike" {
-		http.Redirect(w, r, fmt.Sprintf("/viewSinglePost?id=%d", postID), http.StatusSeeOther)
-		return
+		err = DB.IncrementDisLikeC12(userID, commentID)
+		if err != nil {
+			res := Error{}
+			res.Code = 500
+			res.Status = "Internal Server Error"
+			ErrorHandler(w, r, &res)
+			return
+		}
+
+		
+
+
+		// http.Redirect(w, r, fmt.Sprintf("/viewSinglePost?id=%d", postID), http.StatusSeeOther)
+		// return
 		// If no prior action, just increment the like
 
 	}
@@ -275,6 +295,14 @@ func HandleLike(w http.ResponseWriter, r *http.Request) {
 	DB.InsertIIntoUserInter(w, userID, postID, action, existingAction)
 
 	if action == "like" && existingAction == "like" {
+		err = DB.DecrementLike1(userID, postID)
+		if err != nil {
+			res := Error{}
+			res.Code = 500
+			res.Status = "Internal Server Error"
+			ErrorHandler(w, r, &res)
+			return
+		}
 		// If the user already liked the post, do nothing or display a message
 		http.Redirect(w, r, fmt.Sprintf("/viewSinglePost?id=%d", postID), http.StatusSeeOther)
 		return
@@ -291,6 +319,14 @@ func HandleLike(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if action == "dislike" && existingAction == "dislike" {
+		err = DB.DecrementDisLike1(userID, postID)
+		if err != nil {
+			res := Error{}
+			res.Code = 500
+			res.Status = "Internal Server Error"
+			ErrorHandler(w, r, &res)
+			return
+		}
 		http.Redirect(w, r, fmt.Sprintf("/viewSinglePost?id=%d", postID), http.StatusSeeOther)
 		return
 		// If no prior action, just increment the like
