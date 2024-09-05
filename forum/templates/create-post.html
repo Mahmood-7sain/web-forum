@@ -17,6 +17,9 @@
         </nav>
         </nav>
         <main>
+            {{if .EmptyField}}
+            <h4 style="color: red;">{{.EmptyField}}</h4>
+            {{end}}
             <form class="create-post-form" method="POST" action="/createPost">
                 <div class="form-group">
                     <label for="post-title">Post Title:</label>
