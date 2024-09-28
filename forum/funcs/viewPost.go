@@ -283,7 +283,7 @@ func HandleLike(w http.ResponseWriter, r *http.Request) {
 	// here is the actual action that will happen
 	action := r.FormValue("action")
 	// Check if the user already liked or disliked this post
-	existingAction, err := DB.GetUserAction(userID, postID)
+	existingAction, found, err := DB.GetUserAction(userID, postID)
 	if err != nil {
 		res := Error{}
 		res.Code = 500
@@ -292,7 +292,9 @@ func HandleLike(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	DB.InsertIIntoUserInter(w, userID, postID, action, existingAction)
+	if !found{
+		DB.InsertIIntoUserInter(w, userID, postID, action, existingAction)
+	}
 
 	if action == "like" && existingAction == "like" {
 		err = DB.DecrementLike1(userID, postID)
@@ -364,7 +366,8 @@ func HandleLike(w http.ResponseWriter, r *http.Request) {
 			ErrorHandler(w, r, &res)
 			return
 		}
-	}
+	
+}
 
 	http.Redirect(w, r, fmt.Sprintf("/viewSinglePost?id=%d", postID), http.StatusSeeOther)
 }

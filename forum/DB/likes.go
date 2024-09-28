@@ -186,13 +186,18 @@ func IncrementDisLike(userID, postID int) error {
 
 
 
-func GetUserAction(userID, postID int) (string, error) {
+func GetUserAction(userID, postID int) (string, bool, error) {
     var actionType string
     query := `SELECT action_type FROM user_interactions WHERE user_id = ? AND post_id = ?`
     err := DB.QueryRow(query, userID, postID).Scan(&actionType)
+
     if err == sql.ErrNoRows {
-        return "", nil // No prior action
+        return "", false, nil // No prior action, row does not exist
+    } else if err != nil {
+        return "", false, err // Return the error if it's not ErrNoRows
     }
-    return actionType, err
+
+    return actionType, true, nil // Row exists, return action type and true
 }
+
 
